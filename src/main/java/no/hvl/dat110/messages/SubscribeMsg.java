@@ -5,7 +5,7 @@ public class SubscribeMsg extends Message {
 	// message sent from client to subscribe on a topic 
 
     public SubscribeMsg(String user, String topic) {
-        super((MessageType.SUBSCRIBE, user));
+        super(MessageType.SUBSCRIBE, user);
         this.topic=topic;
     }
 
