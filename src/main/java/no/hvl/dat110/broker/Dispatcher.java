@@ -113,7 +113,7 @@ public class Dispatcher extends Stopable {
 		// TODO: create the topic in the broker storage
 		// the topic is contained in the create topic message
 
-		throw new UnsupportedOperationException(TODO.method());
+		storage.createTopic(msg.getTopic());
 
 	}
 
@@ -124,7 +124,7 @@ public class Dispatcher extends Stopable {
 		// TODO: delete the topic from the broker storage
 		// the topic is contained in the delete topic message
 		
-		throw new UnsupportedOperationException(TODO.method());
+		storage.deleteTopic(msg.getTopic());
 	}
 
 	public void onSubscribe(SubscribeMsg msg) {
@@ -134,7 +134,7 @@ public class Dispatcher extends Stopable {
 		// TODO: subscribe user to the topic
 		// user and topic is contained in the subscribe message
 		
-		throw new UnsupportedOperationException(TODO.method());
+		storage.subscriptions.get(msg.getTopic()).add(msg.getUser());
 
 	}
 
@@ -145,7 +145,7 @@ public class Dispatcher extends Stopable {
 		// TODO: unsubscribe user to the topic
 		// user and topic is contained in the unsubscribe message
 		
-		throw new UnsupportedOperationException(TODO.method());
+		storage.subscriptions.get(msg.getTopic()).remove(msg.getUser());
 	}
 
 	public void onPublish(PublishMsg msg) {
@@ -156,7 +156,9 @@ public class Dispatcher extends Stopable {
 		// topic and message is contained in the subscribe message
 		// messages must be sent using the corresponding client session objects
 		
-		throw new UnsupportedOperationException(TODO.method());
+		storage.subscriptions.get(msg.getTopic()).forEach(a -> storage.clients.get(a).send(msg));
+		
+		
 
 	}
 }
